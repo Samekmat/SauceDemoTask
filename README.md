@@ -19,6 +19,9 @@ Automated End-to-End (E2E) test suite for [SauceDemo](https://www.saucedemo.com/
 
 ```text
 hitachi_task/
+├── .github/
+│   └── workflows/
+│       └── playwright.yml  # GitHub Actions CI workflow
 ├── pages/
 │   ├── __init__.py
 │   ├── login_page.py       # Page Object for Login Page
@@ -34,6 +37,7 @@ hitachi_task/
 ├── requirements.txt        # Dependencies for standard pip setup
 └── uv.lock                 # Lockfile ensuring exact dependency versions
 ```
+
 
 ---
 
