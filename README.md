@@ -144,6 +144,11 @@ To demonstrate modern Python engineering standards, I incorporated **`uv`** for 
 2. **Locked Out User (Edge Case):** Validates negative paths, error handling, and correct UI feedback.
 3. **Add to Cart (E2E Flow):** Validates the interaction between multiple pages and UI state changes (cart badge updates).
 
+**Overall Experience**
+Using AI in this task was a huge time-saver. Since Python and pytest are the core tools in my daily tech stack, I felt very comfortable with the base setup. However, my previous test automation experience was primarily with Cypress. By delegating repetitive tasks - like generating boilerplate code and page locators - to the AI, I had more time to focus on Playwright's best practices. My main focus was reviewing the AI's output, ensuring it aligned with modern Playwright standards (such as web-first assertions), and building a clean architecture with solid documentation.
+
+
+
 ---
 
 ## AI Assistance & Prompts Used
@@ -160,4 +165,11 @@ Below are the exact prompts used during the development process:
 
 ### Prompt 3: Refactoring and Configuration
 > "To complete our test architecture, let's set up the configuration. Please generate a `conftest.py` file that creates pytest fixtures for our Page Objects (`login_page` and `inventory_page`), utilizing Playwright's built-in `page` fixture. Additionally, generate a `pytest.ini` file to configure the `base_url` and define default CLI options for our cross-browser execution strategy."
+
+### Future Enhancements (Next Steps)
+While the current test suite strictly satisfies the requirement of three automated tests, the architecture is designed to easily scale. The logical next steps for expanding this project would be:
+* **Full E2E Checkout Flow:** Introducing `CartPage` and `CheckoutPage` objects to validate the entire purchase journey (filling shipping data, overview, and successful order submission).
+* **Negative Checkout Scenarios:** Testing validation errors in the checkout form (e.g., missing postal code).
+* **Parallel Execution:** Implementing `pytest-xdist` to run tests concurrently, drastically reducing execution time as the test suite grows.
+
 
