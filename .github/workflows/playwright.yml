@@ -45,3 +45,5 @@ jobs:
             test-results/
             playwright-report/
           retention-days: 14
+          if-no-files-found: ignore
+
