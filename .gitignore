@@ -1,0 +1,22 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# Testing and Playwright outputs
+.pytest_cache/
+test-results/
+playwright-report/
+blob-report/
+.coverage
+htmlcov/
+
+# Linting
+.ruff_cache/
+
