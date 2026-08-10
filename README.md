@@ -126,3 +126,38 @@ uv run ruff check --fix .
 ```bash
 uv run ruff format .
 ```
+
+---
+
+## Approach and Experience (Brief Description)
+
+**Architecture & Design Choices**
+To ensure the test suite is robust and easily maintainable, I implemented the **Page Object Model (POM)** pattern. The logic for interacting with web elements is encapsulated in dedicated classes (`LoginPage` and `InventoryPage`), which keeps the actual test file (`test_saucedemo.py`) clean, readable, and focused purely on business logic. 
+
+I chose the **synchronous Playwright API** because it integrates seamlessly with `pytest` via the `pytest-playwright` plugin, but also. This allowed me to utilize built-in fixtures (like `page`) natively without the overhead of managing async event loops. To further improve stability, I exclusively used Playwright's auto-retrying web-first assertions (e.g., `expect(locator).to_be_visible()`) to eliminate flaky tests caused by timing issues.
+
+**Going Beyond the Basics**
+To demonstrate modern Python engineering standards, I incorporated **`uv`** for extremely fast and deterministic dependency management (via `uv.lock`) and **`Ruff`** for strict linting and code formatting. Additionally, I set up a GitHub Actions workflow to ensure Continuous Integration (CI) runs tests across all target browsers automatically.
+
+**Test Scenarios Selected**
+1. **Successful Login (Happy Path):** Validates core access functionality.
+2. **Locked Out User (Edge Case):** Validates negative paths, error handling, and correct UI feedback.
+3. **Add to Cart (E2E Flow):** Validates the interaction between multiple pages and UI state changes (cart badge updates).
+
+---
+
+## AI Assistance & Prompts Used
+
+I utilized AI (Gemini / Antigravity) as a pair-programming partner to accelerate the generation of boilerplate code, POM structures, and standard locators. The AI was highly effective at saving time on repetitive tasks. However, I maintained architectural control by specifically instructing the AI to use the POM pattern, the synchronous Playwright API, and strict web-first assertions. 
+
+Below are the exact prompts used during the development process:
+
+### Prompt 1: Initial POM Generation
+> "Act as a Senior QA Automation Engineer. I need to automate tests for saucedemo.com using Python, pytest, and Playwright. The testing strategy must support cross-browser execution (Chromium, Firefox, WebKit). Please generate a Page Object Model class for the Login page. Include locators for username, password, login button, and error message. You can use chaining and filtering if needed. Use Playwright's sync API and include type hints."
+
+### Prompt 2: Test Creation and Second POM
+> "Now, let's write the actual tests in a `test_saucedemo.py` file. The 3 test scenarios are: 1. Successful login for 'standard_user'. 2. Failed login for 'locked_out_user'. 3. E2E flow: successful login, adding a specific item to the cart, and verifying the cart badge updates to '1'. To maintain the POM architecture, first generate an `InventoryPage` class for the third test. Then, generate the pytest file. Use Playwright's built-in auto-retrying assertions (`expect`) to prevent flaky tests. Assume we are using the built-in `page` fixture provided by pytest-playwright."
+
+### Prompt 3: Refactoring and Configuration
+> "To complete our test architecture, let's set up the configuration. Please generate a `conftest.py` file that creates pytest fixtures for our Page Objects (`login_page` and `inventory_page`), utilizing Playwright's built-in `page` fixture. Additionally, generate a `pytest.ini` file to configure the `base_url` and define default CLI options for our cross-browser execution strategy."
+
