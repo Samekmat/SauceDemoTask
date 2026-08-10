@@ -134,7 +134,7 @@ uv run ruff format .
 **Architecture & Design Choices**
 To ensure the test suite is robust and easily maintainable, I implemented the **Page Object Model (POM)** pattern. The logic for interacting with web elements is encapsulated in dedicated classes (`LoginPage` and `InventoryPage`), which keeps the actual test file (`test_saucedemo.py`) clean, readable, and focused purely on business logic. 
 
-I chose the **synchronous Playwright API** because it integrates seamlessly with `pytest` via the `pytest-playwright` plugin, but also. This allowed me to utilize built-in fixtures (like `page`) natively without the overhead of managing async event loops. To further improve stability, I exclusively used Playwright's auto-retrying web-first assertions (e.g., `expect(locator).to_be_visible()`) to eliminate flaky tests caused by timing issues.
+I chose the **synchronous Playwright API** because it integrates seamlessly with `pytest` via the `pytest-playwright` plugin, and since our test suite consists of straightforward E2E flows, synchronous execution is simpler and avoids the unnecessary complexity of managing async event loops. This allowed me to utilize built-in fixtures (like `page`) natively. To further improve stability, I exclusively used Playwright's auto-retrying web-first assertions (e.g., `expect(locator).to_be_visible()`) to eliminate flaky tests caused by timing issues.
 
 **Going Beyond the Basics**
 To demonstrate modern Python engineering standards, I incorporated **`uv`** for extremely fast and deterministic dependency management (via `uv.lock`) and **`Ruff`** for strict linting and code formatting. Additionally, I set up a GitHub Actions workflow to ensure Continuous Integration (CI) runs tests across all target browsers automatically.
